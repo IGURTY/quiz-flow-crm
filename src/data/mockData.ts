@@ -1,0 +1,193 @@
+import { User, Quiz, Lead, MessageTemplate, RemarketingRule } from '@/types/crm';
+
+export const mockUsers: User[] = [
+  {
+    id: '1',
+    name: 'Admin Master',
+    email: 'admin@empresa.com',
+    phone: '5511999999999',
+    role: 'admin',
+    whatsappStatus: 'online',
+    dailyLeadLimit: 999,
+    leadsReceivedToday: 0,
+    createdAt: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: '2',
+    name: 'João Silva',
+    phone: '5511988888888',
+    role: 'user',
+    whatsappStatus: 'online',
+    dailyLeadLimit: 20,
+    leadsReceivedToday: 5,
+    createdAt: '2024-01-15T00:00:00Z',
+  },
+  {
+    id: '3',
+    name: 'Maria Santos',
+    phone: '5511977777777',
+    role: 'user',
+    whatsappStatus: 'offline',
+    dailyLeadLimit: 20,
+    leadsReceivedToday: 8,
+    createdAt: '2024-01-20T00:00:00Z',
+  },
+  {
+    id: '4',
+    name: 'Carlos Oliveira',
+    phone: '5511966666666',
+    role: 'user',
+    whatsappStatus: 'online',
+    dailyLeadLimit: 15,
+    leadsReceivedToday: 3,
+    createdAt: '2024-02-01T00:00:00Z',
+  },
+];
+
+export const mockQuizzes: Quiz[] = [
+  {
+    id: '1',
+    title: 'Captação de Leads - Imóveis',
+    description: 'Quiz para qualificação de interessados em imóveis',
+    slug: 'imoveis-2024',
+    isPublished: true,
+    steps: [
+      {
+        id: 's1',
+        order: 1,
+        title: 'Dados Pessoais',
+        questions: [
+          { id: 'q1', stepId: 's1', order: 1, type: 'text', question: 'Qual é o seu nome?', required: true },
+          { id: 'q2', stepId: 's1', order: 2, type: 'text', question: 'Qual é o seu WhatsApp?', required: true },
+        ],
+      },
+      {
+        id: 's2',
+        order: 2,
+        title: 'Preferências',
+        questions: [
+          { id: 'q3', stepId: 's2', order: 1, type: 'multiple_choice', question: 'Qual tipo de imóvel você procura?', options: ['Apartamento', 'Casa', 'Terreno', 'Comercial'], required: true },
+          { id: 'q4', stepId: 's2', order: 2, type: 'number', question: 'Qual o valor máximo que pretende investir?', required: true },
+        ],
+      },
+      {
+        id: 's3',
+        order: 3,
+        title: 'Finalização',
+        questions: [
+          { id: 'q5', stepId: 's3', order: 1, type: 'yes_no', question: 'Você tem urgência na compra?', required: true },
+        ],
+      },
+    ],
+    createdAt: '2024-01-10T00:00:00Z',
+    updatedAt: '2024-03-15T00:00:00Z',
+  },
+];
+
+export const mockLeads: Lead[] = [
+  {
+    id: 'l1',
+    quizId: '1',
+    assignedUserId: '2',
+    name: 'Pedro Almeida',
+    phone: '5511955555555',
+    email: 'pedro@email.com',
+    status: 'novo',
+    answers: [],
+    utmSource: 'facebook',
+    utmCampaign: 'campanha_janeiro',
+    notes: '',
+    createdAt: '2024-03-20T10:00:00Z',
+    updatedAt: '2024-03-20T10:00:00Z',
+  },
+  {
+    id: 'l2',
+    quizId: '1',
+    assignedUserId: '2',
+    name: 'Ana Costa',
+    phone: '5511944444444',
+    status: 'em_contato',
+    answers: [],
+    utmSource: 'google',
+    notes: 'Retornar ligação amanhã',
+    createdAt: '2024-03-19T14:00:00Z',
+    updatedAt: '2024-03-20T09:00:00Z',
+  },
+  {
+    id: 'l3',
+    quizId: '1',
+    assignedUserId: '4',
+    name: 'Lucas Ferreira',
+    phone: '5511933333333',
+    status: 'qualificado',
+    answers: [],
+    notes: 'Interessado em apartamento 3 quartos',
+    createdAt: '2024-03-18T11:00:00Z',
+    updatedAt: '2024-03-19T16:00:00Z',
+  },
+  {
+    id: 'l4',
+    quizId: '1',
+    assignedUserId: '2',
+    name: 'Mariana Lima',
+    phone: '5511922222222',
+    status: 'proposta',
+    answers: [],
+    notes: 'Proposta enviada - R$ 450.000',
+    createdAt: '2024-03-15T09:00:00Z',
+    updatedAt: '2024-03-20T11:00:00Z',
+  },
+  {
+    id: 'l5',
+    quizId: '1',
+    assignedUserId: '4',
+    name: 'Roberto Souza',
+    phone: '5511911111111',
+    status: 'fechado',
+    answers: [],
+    notes: 'Fechou apartamento Jardins',
+    createdAt: '2024-03-01T08:00:00Z',
+    updatedAt: '2024-03-18T10:00:00Z',
+  },
+  {
+    id: 'l6',
+    quizId: '1',
+    assignedUserId: '3',
+    name: 'Fernanda Rocha',
+    phone: '5511900000000',
+    status: 'perdido',
+    answers: [],
+    notes: 'Desistiu - sem budget',
+    createdAt: '2024-03-10T13:00:00Z',
+    updatedAt: '2024-03-17T15:00:00Z',
+  },
+];
+
+export const mockMessageTemplates: MessageTemplate[] = [
+  {
+    id: 't1',
+    name: 'Boas-vindas',
+    content: 'Olá {{nome}}! 👋 Obrigado pelo seu interesse. Sou {{vendedor}} e vou te ajudar a encontrar o imóvel ideal. Posso te ligar agora?',
+    isDefault: true,
+    createdAt: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 't2',
+    name: 'Follow-up 24h',
+    content: 'Oi {{nome}}! Tudo bem? Vi que você demonstrou interesse ontem. Ainda está procurando imóvel? Tenho algumas opções que podem te interessar! 🏠',
+    isDefault: false,
+    createdAt: '2024-01-01T00:00:00Z',
+  },
+];
+
+export const mockRemarketingRules: RemarketingRule[] = [
+  {
+    id: 'r1',
+    name: 'Follow-up automático',
+    triggerStatus: 'novo',
+    daysWithoutActivity: 1,
+    templateId: 't2',
+    isActive: true,
+    createdAt: '2024-01-01T00:00:00Z',
+  },
+];
